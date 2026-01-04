@@ -18,13 +18,15 @@
  * ```js
  * import { nanoid } from 'nanoid/non-secure'
  * model.id = nanoid() //=> "Uakgb_J5m9g-0JDMbcJqL"
+ * model.id = nanoid(21, 'usr_') //=> "usr_Uakgb_J5m9g-0JDMbcJqL"
  * ```
  *
  * @param size Size of the ID. The default size is 21.
+ * @param prefix Optional prefix to prepend to the generated ID.
  * @typeparam Type The ID type to replace `string` with some opaque type.
  * @returns A random string.
  */
-export function nanoid<Type extends string>(size?: number): Type
+export function nanoid<Type extends string>(size?: number, prefix?: string): Type
 
 /**
  * Generate a unique ID based on a custom alphabet.
