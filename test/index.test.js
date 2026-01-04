@@ -48,6 +48,25 @@ for (let type of ['node', 'browser']) {
       equal(nanoid(10).length, 10)
     })
 
+    test(`supports prefix parameter`, () => {
+      let id = nanoid(21, 'usr_')
+      equal(id.length, 25)
+      ok(id.startsWith('usr_'))
+    })
+
+    test(`prefix works with different sizes`, () => {
+      let id = nanoid(10, 'ord_')
+      equal(id.length, 14)
+      ok(id.startsWith('ord_'))
+    })
+
+    test(`prefix defaults to empty string`, () => {
+      let id1 = nanoid(10)
+      let id2 = nanoid(10, '')
+      equal(id1.length, 10)
+      equal(id2.length, 10)
+    })
+
     test(`accepts string`, () => {
       equal(nanoid('10').length, 10)
     })

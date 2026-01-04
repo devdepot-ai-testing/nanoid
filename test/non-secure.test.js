@@ -19,6 +19,18 @@ describe('non secure', () => {
     equal(nanoid(10).length, 10)
   })
 
+  test('supports prefix parameter', () => {
+    let id = nanoid(21, 'usr_')
+    equal(id.length, 25)
+    ok(id.startsWith('usr_'))
+  })
+
+  test('prefix works with different sizes', () => {
+    let id = nanoid(10, 'ord_')
+    equal(id.length, 14)
+    ok(id.startsWith('ord_'))
+  })
+
   test('accepts string', () => {
     equal(nanoid('10').length, 10)
   })
