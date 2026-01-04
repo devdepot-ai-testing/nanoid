@@ -11,6 +11,20 @@
  */
 
 /**
+ * Options for the nanoid function.
+ */
+export interface NanoidOptions {
+  /**
+   * Size of the ID. The default size is 21.
+   */
+  size?: number
+  /**
+   * Optional suffix to append to the generated ID.
+   */
+  suffix?: string
+}
+
+/**
  * Generate secure URL-friendly unique ID.
  *
  * By default, the ID will have 21 symbols to have a collision probability
@@ -19,13 +33,14 @@
  * ```js
  * import { nanoid } from 'nanoid'
  * model.id = nanoid() //=> "Uakgb_J5m9g-0JDMbcJqL"
+ * model.id = nanoid({ suffix: '_dev' }) //=> "Uakgb_J5m9g-0JDMbcJqL_dev"
  * ```
  *
- * @param size Size of the ID. The default size is 21.
+ * @param options Size of the ID or options object. The default size is 21.
  * @typeparam Type The ID type to replace `string` with some opaque type.
  * @returns A random string.
  */
-export function nanoid<Type extends string>(size?: number): Type
+export function nanoid<Type extends string>(options?: number | NanoidOptions): Type
 
 /**
  * Generate secure unique ID with custom alphabet.

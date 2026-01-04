@@ -68,6 +68,34 @@ for (let type of ['node', 'browser']) {
       notEqual(second, third)
     })
 
+    test(`appends suffix to generated ID`, () => {
+      let id = nanoid({ suffix: '_dev' })
+      equal(id.length, 21 + 4) // 21 default size + 4 for '_dev'
+      ok(id.endsWith('_dev'))
+    })
+
+    test(`appends suffix with custom size`, () => {
+      let id = nanoid({ size: 10, suffix: '_prod' })
+      equal(id.length, 10 + 5) // 10 custom size + 5 for '_prod'
+      ok(id.endsWith('_prod'))
+    })
+
+    test(`works with suffix and default size`, () => {
+      let id = nanoid({ suffix: '_v1' })
+      equal(id.length, 21 + 3)
+      ok(id.endsWith('_v1'))
+    })
+
+    test(`works with options object without suffix`, () => {
+      let id = nanoid({ size: 15 })
+      equal(id.length, 15)
+    })
+
+    test(`works with empty suffix`, () => {
+      let id = nanoid({ suffix: '' })
+      equal(id.length, 21)
+    })
+
     test(`has flat distribution`, () => {
       let COUNT = 100 * 1000
       let LENGTH = nanoid().length

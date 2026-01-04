@@ -64,6 +64,23 @@ describe('non secure', () => {
     notEqual(second, third)
   })
 
+  test('nanoid / appends suffix to generated ID', () => {
+    let id = nanoid({ suffix: '_dev' })
+    equal(id.length, 21 + 4) // 21 default size + 4 for '_dev'
+    ok(id.endsWith('_dev'))
+  })
+
+  test('nanoid / appends suffix with custom size', () => {
+    let id = nanoid({ size: 10, suffix: '_prod' })
+    equal(id.length, 10 + 5) // 10 custom size + 5 for '_prod'
+    ok(id.endsWith('_prod'))
+  })
+
+  test('nanoid / works with options object without suffix', () => {
+    let id = nanoid({ size: 15 })
+    equal(id.length, 15)
+  })
+
   test('customAlphabet / has options', () => {
     let nanoidA = customAlphabet('a', 5)
     equal(nanoidA(), 'aaaaa')
