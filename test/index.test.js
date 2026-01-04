@@ -48,6 +48,23 @@ for (let type of ['node', 'browser']) {
       equal(nanoid(10).length, 10)
     })
 
+    test(`generates ID with prefix`, () => {
+      let id = nanoid(21, 'usr_')
+      ok(id.startsWith('usr_'))
+      equal(id.length, 25) // 4 (prefix) + 21 (id)
+    })
+
+    test(`generates ID with prefix and custom size`, () => {
+      let id = nanoid(10, 'ord_')
+      ok(id.startsWith('ord_'))
+      equal(id.length, 14) // 4 (prefix) + 10 (id)
+    })
+
+    test(`generates ID with empty prefix`, () => {
+      let id = nanoid(21, '')
+      equal(id.length, 21)
+    })
+
     test(`accepts string`, () => {
       equal(nanoid('10').length, 10)
     })

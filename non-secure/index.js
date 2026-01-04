@@ -22,7 +22,7 @@ export let customAlphabet = (alphabet, defaultSize = 21) => {
   }
 }
 
-export let nanoid = (size = 21) => {
+export let nanoid = (size = 21, prefix = '') => {
   let id = ''
   // A compact alternative for `for (var i = 0; i < step; i++)`.
   let i = size | 0
@@ -30,5 +30,5 @@ export let nanoid = (size = 21) => {
     // `| 0` is more compact and faster than `Math.floor()`.
     id += urlAlphabet[(Math.random() * 64) | 0]
   }
-  return id
+  return prefix + id
 }
