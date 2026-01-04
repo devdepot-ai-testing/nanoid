@@ -51,7 +51,17 @@ export let customRandom = (alphabet, defaultSize, getRandom) => {
 export let customAlphabet = (alphabet, size = 21) =>
   customRandom(alphabet, size | 0, random)
 
-export let nanoid = (size = 21) => {
+export let nanoid = (options = 21) => {
+  let size = 21
+  let suffix = ''
+
+  if (typeof options === 'object' && options !== null) {
+    size = options.size ?? 21
+    suffix = options.suffix ?? ''
+  } else {
+    size = options
+  }
+
   let id = ''
   let bytes = crypto.getRandomValues(new Uint8Array((size |= 0)))
   while (size--) {
@@ -60,5 +70,5 @@ export let nanoid = (size = 21) => {
     // that the value will be a valid index for the "chars" string.
     id += scopedUrlAlphabet[bytes[size] & 63]
   }
-  return id
+  return id + suffix
 }

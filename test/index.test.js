@@ -48,6 +48,34 @@ for (let type of ['node', 'browser']) {
       equal(nanoid(10).length, 10)
     })
 
+    test(`appends suffix to generated ID`, () => {
+      let id = nanoid({ suffix: '_dev' })
+      equal(id.length, 21 + 4)
+      ok(id.endsWith('_dev'))
+    })
+
+    test(`uses custom size with suffix`, () => {
+      let id = nanoid({ size: 10, suffix: '_test' })
+      equal(id.length, 10 + 5)
+      ok(id.endsWith('_test'))
+    })
+
+    test(`works with only suffix option`, () => {
+      let id = nanoid({ suffix: '_prod' })
+      equal(id.length, 21 + 5)
+      ok(id.endsWith('_prod'))
+    })
+
+    test(`works with empty suffix`, () => {
+      let id = nanoid({ suffix: '' })
+      equal(id.length, 21)
+    })
+
+    test(`works with size option only`, () => {
+      let id = nanoid({ size: 15 })
+      equal(id.length, 15)
+    })
+
     test(`accepts string`, () => {
       equal(nanoid('10').length, 10)
     })

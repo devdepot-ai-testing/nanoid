@@ -70,7 +70,17 @@ export function customAlphabet(alphabet, size = 21) {
   return customRandom(alphabet, size, random)
 }
 
-export function nanoid(size = 21) {
+export function nanoid(options = 21) {
+  let size = 21
+  let suffix = ''
+
+  if (typeof options === 'object' && options !== null) {
+    size = options.size ?? 21
+    suffix = options.suffix ?? ''
+  } else {
+    size = options
+  }
+
   // `|=` convert `size` to number to prevent `valueOf` abusing and pool pollution
   fillPool((size |= 0))
   let id = ''
@@ -83,5 +93,5 @@ export function nanoid(size = 21) {
     // the bitmask trims bytes down to the alphabet size.
     id += scopedUrlAlphabet[pool[i] & 63]
   }
-  return id
+  return id + suffix
 }
