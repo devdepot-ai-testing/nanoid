@@ -183,6 +183,39 @@ for (let type of ['node', 'browser']) {
       }
     })
 
+    test(`${type} / suffix / appends suffix to ID`, () => {
+      let id = nanoid({ suffix: '_dev' })
+      equal(id.length, 21 + 4)
+      ok(id.endsWith('_dev'))
+    })
+
+    test(`${type} / suffix / works with custom size`, () => {
+      let id = nanoid({ size: 10, suffix: '_test' })
+      equal(id.length, 10 + 5)
+      ok(id.endsWith('_test'))
+    })
+
+    test(`${type} / suffix / works with empty suffix`, () => {
+      let id = nanoid({ suffix: '' })
+      equal(id.length, 21)
+    })
+
+    test(`${type} / suffix / uses default size when only suffix provided`, () => {
+      let id = nanoid({ suffix: '_prod' })
+      equal(id.length, 21 + 5)
+      ok(id.endsWith('_prod'))
+    })
+
+    test(`${type} / suffix / works with size 0 and suffix`, () => {
+      let id = nanoid({ size: 0, suffix: '_empty' })
+      equal(id, '_empty')
+    })
+
+    test(`${type} / suffix / options object without suffix behaves normally`, () => {
+      let id = nanoid({ size: 15 })
+      equal(id.length, 15)
+    })
+
     if (type === 'node') {
       test(`${type} / proxy number / prevent collision`, () => {
         let makeProxyNumberToReproducePreviousID = () => {
